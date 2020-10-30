@@ -1,7 +1,7 @@
 ***
 
 
-# Pattern-mixture models for aggregate binary data{.tabset .tabset-fade .tabset-pills}
+# Pattern-mixture models for aggregate binary data
 
 ## Description
 
