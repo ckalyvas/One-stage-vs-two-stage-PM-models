@@ -1,1 +1,76 @@
+---
+output:
+  github_document
+---
 
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+***
+
+
+# Pattern-mixture models for aggregate binary data{.tabset .tabset-fade .tabset-pills}
+
+## Description
+
+In our article __"Pattern-mixture model in network meta-analysis of binary missing outcome data: one-stage or two-stage approach?"__ we compare the exact likelihood (_one-stage approach_) with the approximate normal likelihood (_two-stage approach_) for the synthesis of trials on a binary outcome in the presence of missing outcome data (MOD). Inititally, we perform an empirical study that includes 29 networks of interventions from several health-fields. Then, we complement the empirical results with a simulation study on a triangle network.  
+
+## Installation 
+
+You can download the __package__ with the developed functions directly from [GitHub](https://github.com/LoukiaSpin/One-stage-vs-two-stage-PM-models) or use the R package [devtools](https://cran.r-project.org/web/packages/devtools/index.html):
+
+```r
+install.packages("devtools")
+devtools::install_github("LoukiaSpin/One-stage-vs-two-stage-PM-models", build_vignettes = T)
+```
+## Dataset 
+
+The dataset with all 29 analysed networks can be found in the namesake folder in two formats:
+
+1. the __.txt__ file with the dataset being in the wide format, where each trial occupies one line and as many columns for each extracted information (number of observed events, MOD, and randomised participants) as the number of investigated interventions (i.e. arm-based data);
+2. the __.RData files__ with the dataset being prepared as a list of networks. We have prepared the dataset to be specific to the analysis approach:
+   * a wide format for the one-stage approach (__One-stage model_NMA Dataset.RData__) as explained in the first point.
+   * a long format for the two-stage approach (__Two-stage model_NMA Dataset.RData__) where each trial occupies as many lines as the number of possible comparisons and the analysed information comprises the corresponsing log odds ratios (OR) and their standard errors obtained by applying the pattern-mixture (PM) model upfront (i.e. contrast-based data).
+   
+## Empirical analysis
+
+The code to perform the empirical analysis for the one-stage and two-stage approaches can be found in the folder __R scripts/Empirical study__. The analysis is performed separately for each approach to obtain the results for the necessary parameters as a __.txt__ file:
+
+1. use the R script __Full RE-NMA Consistency_One-stage model.R__ for the one-stage approach to perform a Bayesian random-effects network meta-analysis (NMA) with consistency equations and accommodation of multi-arm trials based on the code of Dias et al. [1] (Example 1(c) in the Appendix, there) for arm-based data that we extended to incorporate the PM model for binary data (Spineli et al. [2]).
+2. use the R script __Full RE-NMA Consistency_Two-stage model.R__ for the two-stage approach to perform a Bayesian random-effects NMA with consistency equations and accommodation of multi-arm trials based on the code of Dias et al. [1] (Example 7(a) in the Appendix, there) for contrast-based data.
+
+Both R scripts load the .txt file __Empirical prior distributions for between-trial variance__ that is located in the folder __Dataset__. This file includes the parameters _mean_ and _standard deviation_ (as well as the median and third quartile) of the log-normal distribution for &tau;<sup>2</sup> that is specific to the intervention-comparison type and outcome type as investigated in each network. We referred to Turner et al. [3] to select the proper empirically-based distribution for each network.
+
+Furthermore, both R scripts 'call' the corresponding models (in .txt format) from the folder __Model scripts__ to perform the NMA. 
+
+### Curious how the output looks like?
+
+The folder __Output/Empirical study__ includes the posterior results in .txt files for the following model parameters per approach:
+
+* the NMA log OR for comparisons with the reference intervention of each network (__LOR_One-stage_Results.txt__, and __LOR_Two-stage_Results.txt__), 
+* the within-trial log ORs (__theta_One-stage_Results.txt__, and __theta_Two-stage_Results.txt__), and 
+* the &tau;<sup>2</sup>, one for each network (__tausq_One-stage_Results.txt__, and __tausq_Two-stage_Results.txt__). 
+
+At the end of the R scripts mentioned above, we have added the necessary code to obtain and save these results as .txt straightforwardly.
+
+#### References
+
+1. Dias S, Sutton AJ, Ades AE, Welton NJ. Evidence synthesis for decision making 2: a generalized linear modeling framework for pairwise and network meta-analysis of randomized controlled trials. Med Decis Mak. 2013;33(5):607–17. 
+2. Spineli LM. An empirical comparison of Bayesian modelling strategies for missing binary outcome data in network meta-analysis. BMC Med Res Methodol. 2019; 19(1):86.
+3. Turner RM, Jackson D, Wei Y, Thompson SG, Higgins JP. Predictive distributions for between-study heterogeneity and simple methods for their application in Bayesian meta-analysis. Stat Med. 2015; 34(6):984–98. 
+
+## Simulation analysis
+
+The code to generate the 1,000 triangle networks of two-arm trials is provided as .R file __Generate triangles_Simulation part A__ in the folder __R scripts/Simulation study__. Alternatively, you can use directly the .RData file __1000 simulated two-arm networks__ with the generated triangles to proceed with the analysis. 
+
+For the analysis of the generated triangles, we provide the code as .R file __Analyse generated triangles_Simulation part B__ in the folder __R scripts/Simulation study__. This R script 'calls' the .txt files __Full RE-NMA One-stage IMOR Pattern-mixture model__ and __Full RE-NMA Two-stage IMOR Pattern-mixture model_Two-arm trials__ to perform NMA under the one-stage and two-stages approaches, respectively.
+
+This is the third simulation study on MOD in NMA following two previous relevant studies [1,2].
+
+#### References
+
+1. Spineli LM, Kalyvas C, Pateras K. Participants’ outcomes gone missing within a network of interventions: Bayesian modeling strategies. Stat Med. 2019;38(20):3861–79. 
+2. Spineli LM, Kalyvas C. Comparison of exclusion, imputation and modelling of missing binary outcome data in frequentist network meta-analysis. BMC Med Res Methodol. 2020;20(1):48,
