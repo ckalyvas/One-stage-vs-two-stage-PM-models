@@ -16,7 +16,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## Description
 
-In our article __"Pattern-mixture model in network meta-analysis of binary missing outcome data: one-stage or two-stage approach?"__ we compare the exact likelihood (_one-stage approach_) with the approximate normal likelihood (_two-stage approach_) for the synthesis of trials on a binary outcome in the presence of missing outcome data (MOD). Inititally, we perform an empirical study that includes 29 networks of interventions from several health-fields. Then, we complement the empirical results with a simulation study on a triangle network.  
+In our article __"Pattern-mixture model in network meta-analysis of binary missing outcome data: one-stage or two-stage approach?"__ we compare the exact likelihood (_one-stage approach_) with the approximate normal likelihood (_two-stage approach_) for the synthesis of trials on a binary outcome in the presence of missing outcome data (MOD). Inititally, we perform an empirical study that includes 29 networks of interventions from several health-fields. Then, we complement the empirical results with a simulation study.  
 
 ## Installation 
 
@@ -28,12 +28,12 @@ devtools::install_github("LoukiaSpin/One-stage-vs-two-stage-PM-models", build_vi
 ```
 ## Dataset 
 
-The dataset with all 29 analysed networks can be found in the namesake folder in two formats:
+The dataset of the 29 networks of studies can be found in the namesake folder in the following two formats:
 
-1. the __.txt__ file with the dataset being in the wide format, where each trial occupies one line and as many columns for each extracted information (number of observed events, MOD, and randomised participants) as the number of investigated interventions (i.e. arm-based data);
+1. the __.txt__ file where each line represents a study and each column represents the extracted information for each study i.e. the number of observed events, the MOD, and the randomised participants for each of the investigated interventions, respectively, (i.e. arm-based data);
 2. the __.RData files__ with the dataset being prepared as a list of networks. We have prepared the dataset to be specific to the analysis approach:
-   * a wide format for the one-stage approach (__One-stage model_NMA Dataset.RData__) as explained in the first point.
-   * a long format for the two-stage approach (__Two-stage model_NMA Dataset.RData__) where each trial occupies as many lines as the number of possible comparisons and the analysed information comprises the corresponsing log odds ratios (OR) and their standard errors obtained by applying the pattern-mixture (PM) model upfront (i.e. contrast-based data).
+   * a format as explained in the first point for the one-stage approach (__One-stage model_NMA Dataset.RData__).
+   * a format for the two-stage approach (__Two-stage model_NMA Dataset.RData__) where for each trial the lines represent the number of possible comparisons and the analysed information comprises the corresponsing log odds ratios (OR) and the corresponding standard errors obtained by applying the pattern-mixture (PM) model upfront (i.e. contrast-based data).
    
 ## Empirical analysis
 
@@ -42,7 +42,7 @@ The code to perform the empirical analysis for the one-stage and two-stage appro
 1. use the R script __Full RE-NMA Consistency_One-stage model.R__ for the one-stage approach to perform a Bayesian random-effects network meta-analysis (NMA) with consistency equations and accommodation of multi-arm trials based on the code of Dias et al. [1] (Example 1(c) in the Appendix, there) for arm-based data that we extended to incorporate the PM model for binary data (Spineli et al. [2]).
 2. use the R script __Full RE-NMA Consistency_Two-stage model.R__ for the two-stage approach to perform a Bayesian random-effects NMA with consistency equations and accommodation of multi-arm trials based on the code of Dias et al. [1] (Example 7(a) in the Appendix, there) for contrast-based data.
 
-Both R scripts load the .txt file __Empirical prior distributions for between-trial variance__ that is located in the folder __Dataset__. This file includes the parameters _mean_ and _standard deviation_ (as well as the median and third quartile) of the log-normal distribution for &tau;<sup>2</sup> that is specific to the intervention-comparison type and outcome type as investigated in each network. We referred to Turner et al. [3] to select the proper empirically-based distribution for each network.
+Both R scripts load the .txt file __Empirical prior distributions for between-trial variance__ that is located in the folder __Dataset__. This file consists of the parameters _mean_ and _standard deviation_ (as well as the median and third quartile) of the log-normal distribution for &tau;<sup>2</sup> that is specific to the intervention-comparison type and outcome type as investigated in each network. We referred to Turner et al. [3] to select the proper empirically-based distribution for each network.
 
 Furthermore, both R scripts 'call' the corresponding models (in .txt format) from the folder __Model scripts__ to perform the NMA. 
 
