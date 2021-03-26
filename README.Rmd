@@ -28,7 +28,7 @@ devtools::install_github("LoukiaSpin/One-stage-vs-two-stage-PM-models", build_vi
 ```
 ## Dataset 
 
-The dataset of the 29 networks of studies can be found in the namesake folder in the following two formats:
+The dataset 29 networks of studies used as example, can be found in the namesake folder in the following two formats:
 
 1. the __.txt__ file where each line represents a study and each column represents the extracted information for each study i.e. the number of observed events, the MOD, and the randomised participants for each of the investigated interventions, respectively, (i.e. arm-based data);
 2. the __.RData files__ with the dataset being prepared as a list of networks. We have prepared the dataset to be specific to the analysis approach:
